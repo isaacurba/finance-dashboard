@@ -79,7 +79,7 @@ const Login = () => {
 
           {/* Sign Up Link */}
           <p className="text-center text-sm text-gray-700">
-            Don’t have an account?{" "}
+            Already have an account account?{" "}
             <a
               href="/"
               className="font-medium text-black hover:underline"

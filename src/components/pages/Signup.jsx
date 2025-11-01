@@ -1,7 +1,47 @@
+import { toast } from "sonner";
 import { Button } from "../ui/button";
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { account, ID } from "../lib/appwrite";
 
-const Login = () => {
+const Signup = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // auto redirect if already logged in
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        await account.get();
+        navigate("/dashboard");
+      } catch (error) {
+        toast.error("Please login to continue");
+      }
+    };
+    checkSession();
+  }, [navigate]);
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(e.target);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    try {
+      await account.create(ID.unique(), email, password, name);
+      await account.createEmailPasswordSession(email, password);
+      toast.success("Account created.! welcome!");
+      setTimeout(() => navigate("/dashboard"), 1500);
+    } catch (error) {
+      toast.error(error.message || "Signup failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
       {/* LEFT SECTION - FORM */}
@@ -22,10 +62,10 @@ const Login = () => {
         </div>
 
         {/* Form */}
-        <form className="w-full max-w-md space-y-6">
-            {/* Full Name */}
+        <form className="w-full max-w-md space-y-6" onSubmit={handleSignup}>
+          {/* Full Name */}
           <label
-            htmlFor="Name"
+            htmlFor="name"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
             Full Name
@@ -33,6 +73,7 @@ const Login = () => {
           <input
             id="name"
             type="text"
+            name="name"
             placeholder="Isaac Urban"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:border-transparent transition"
           />
@@ -48,7 +89,8 @@ const Login = () => {
             <input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              name="email"
+              placeholder="isaacurban@example.com"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition"
             />
           </div>
@@ -64,6 +106,7 @@ const Login = () => {
             <input
               id="password"
               type="password"
+              name="password"
               placeholder="••••••••"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition"
             />
@@ -74,16 +117,39 @@ const Login = () => {
             type="submit"
             className="w-full btn-color hover:bg-lime-600 text-gray-900 font-semibold py-3 rounded-lg transition"
           >
-            Craete Account
+            {loading ? (
+              <>
+                <svg
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Creating Your Account...
+              </>
+            ) : (
+              "Create Account"
+            )}{" "}
           </Button>
 
           {/* Sign Up Link */}
           <p className="text-center text-sm text-gray-700">
             Already have an account account?{" "}
-            <a
-              href="/"
-              className="font-medium text-black hover:underline"
-            >
+            <a href="/" className="font-medium text-black hover:underline">
               Sign in
             </a>
           </p>
@@ -101,4 +167,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

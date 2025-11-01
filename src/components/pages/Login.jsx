@@ -30,7 +30,7 @@ const Login = () => {
     const password = formData.get("password");
 
     try {
-      // ✅ FIXED method name
+      // Create a session
       await account.createEmailPasswordSession(email, password);
 
       toast.success("Login successful!");

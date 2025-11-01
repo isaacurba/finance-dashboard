@@ -74,6 +74,7 @@ const Signup = () => {
             id="name"
             type="text"
             name="name"
+            required
             placeholder="Isaac Urban"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:border-transparent transition"
           />
@@ -90,6 +91,7 @@ const Signup = () => {
               id="email"
               type="email"
               name="email"
+              required
               placeholder="isaacurban@example.com"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition"
             />
@@ -107,6 +109,7 @@ const Signup = () => {
               id="password"
               type="password"
               name="password"
+              required
               placeholder="••••••••"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent transition"
             />

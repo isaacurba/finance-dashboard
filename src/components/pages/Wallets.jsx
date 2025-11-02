@@ -1,8 +1,12 @@
 import React from 'react'
+import Sidebar from "../dashboard/Sidebar";
+
 
 const Wallets = () => {
   return (
-    <div>Wallets</div>
+    <div>
+      <Sidebar />
+    </div>
   )
 }
 

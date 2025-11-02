@@ -1,9 +1,13 @@
-import React from 'react'
+import Sidebar from "../dashboard/Sidebar";
+import Navbar from "../dashboard/Navbar";
+import React from "react";
 
 const invoices = () => {
   return (
-    <div>invoices</div>
-  )
-}
+    <div>
+      <Sidebar />
+    </div>
+  );
+};
 
-export default invoices
+export default invoices;

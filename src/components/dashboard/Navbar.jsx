@@ -1,22 +1,21 @@
-// src/dashboard/Navbar.jsx
-import React, { useState } from "react"; // Add useState for controlled Select
-import { useLocation } from "react-router-dom"; // For dynamic title
-import { Button } from "../ui/button"; // Adjust path
-import { Bell, User, Filter, Plus, Menu } from "lucide-react"; // Icons (add Menu for hamburger)
+import React, { useState } from "react"; 
+import { useLocation } from "react-router-dom";
+import { Button } from "../ui/button";
+import { Bell, User, Filter, Plus, Menu } from "lucide-react"; 
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select"; // Import Select components (run npx shadcn-ui@latest add select if missing)
+} from "../ui/select";
 
 // Fake user data (replace with real from Appwrite later)
 const user = { name: "Mahfuz Nabi", avatar: "/assets/avatar.png" };
 
-export default function Navbar({ toggleSidebar }) { // Optional toggle for mobile sidebar
-  const location = useLocation(); // Get current route for dynamic title
-  const [filterValue, setFilterValue] = useState("all"); // FIXED: State for controlled Select (makes trigger work)
+export default function Navbar({ toggleSidebar }) { //  toggle for mobile sidebar
+  const location = useLocation(); 
+  const [filterValue, setFilterValue] = useState("all"); 
 
   // Dynamic title based on route (matches sidebar menu)
   const getPageTitle = () => {
@@ -40,7 +39,7 @@ export default function Navbar({ toggleSidebar }) { // Optional toggle for mobil
   const isInvoicesPage = location.pathname === "/invoices"; // Filters/create on invoices
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shadow-sm overflow-hidden"> {/* FIXED: overflow-hidden to prevent overflow */}
+    <header className="bg-white px-6 py-4 flex items-center justify-between overflow-hidden"> {/* FIXED: overflow-hidden to prevent overflow */}
       {/* Left: Mobile Hamburger + Logo (visible on mobile) + Dynamic Title (hidden on mobile) */}
       <div className="flex items-center gap-4 flex-1 md:flex-none min-w-0"> {/* FIXED: flex-1 + min-w-0 to prevent title overflow on small screens */}
         {/* Mobile Hamburger (only on mobile) */}

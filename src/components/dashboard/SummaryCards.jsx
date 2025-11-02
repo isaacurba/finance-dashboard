@@ -1,69 +1,59 @@
-// src/dashboard/SummaryCards.jsx
 import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"; // Adjust path to shadcn ui
+import { Card } from "../ui/card";
 
 const metrics = [
   {
-    title: "Total Invoices",
-    value: "₦5,240.21", 
-    icon: "/assets/wallet1.png",
-    color: "text-gray-900",
-    bg: "bg-white",
+    title: "Total Invoice",
+    value: "₦5240.21",
+    iconBg: "bg-[#45484D]", // dark icon background
+    icon: "/assets/wallet3.png",
+    cardBg: "bg-[#2F3237] text-white", // full dark card
   },
   {
     title: "Amount Paid",
-    value: "₦250.80", 
+    value: "₦250.80",
+    iconBg: "bg-gray-100",
     icon: "/assets/wallet2.png",
-    color: "text-green-600",
-    bg: "bg-green-50",
+    cardBg: "bg-gray-50 text-gray-900", // light gray
   },
   {
     title: "Pending Payment",
-    value: "₦550.25", 
-    icon: "/assets/wallet3.png", 
-    color: "text-orange-600",
-    bg: "bg-orange-50",
-  }
-  // {
-  //   title: "VAT Collected",
-  //   value: "₦375.00", 
-  //   icon: "/assets/vat-icon.png",
-  //   color: "text-purple-600",
-  //   bg: "bg-purple-50",
-  // },
+    value: "₦550.25",
+    iconBg: "bg-gray-100",
+    icon: "/assets/wallet1.png",
+    cardBg: "bg-gray-50 text-gray-900", // light gray
+  },
 ];
 
 export default function SummaryCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-      {/* Responsive: stack mobile, 2x2 tablet, 4 col desktop */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 w-[80%]">
       {metrics.map((metric, index) => (
         <Card
           key={index}
-          className={`shadow-sm border border-gray-200 hover:shadow-md transition-shadow ${metric.bg}`}
+          className={`relative p-6 rounded-xl shadow-sm border border-gray-200 ${metric.cardBg}`}
         >
-          {/* Figma: light bg for positive, white default */}
-          <CardHeader className="pb-2">
-            {/* Compact header */}
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-sm font-medium text-gray-700">
+          <div className="flex gap-5 items-center">
+            <div>
+              <img src={metric.icon} alt="icon" />
+            </div>
+
+            <div>
+              {/* Title */}
+              <p
+                className={`text-sm font-medium ${
+                  metric.cardBg.includes("text-white")
+                    ? "text-gray-300"
+                    : "text-gray-500"
+                }`}
+              >
                 {metric.title}
-              </CardTitle>
-              {/* FIXED: Use <img> for image path, not <metric.icon /> (string error) */}
-              <img
-                src={metric.icon}
-                alt={`${metric.title} icon`}
-                className={`h-4 w-4 ${metric.color}`}
-              />
+              </p>
+
+              {/* Value */}
+              <h2 className="text-2xl font-bold mt-1">{metric.value}</h2>
             </div>
-          </CardHeader>
-          <CardContent className="pt-0">
-            {/* Value below, large bold */}
-            <div className={`text-3xl font-bold ${metric.color}`}>
-              {metric.value}
-            </div>
-            {/* Big numbers like Figma */}
-          </CardContent>
+          </div>
         </Card>
       ))}
     </div>

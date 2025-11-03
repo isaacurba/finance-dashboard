@@ -12,7 +12,7 @@ const fakeInvoices = [
     id: 1,
     client: "Gadget Gallery Ltd",
     invoiceNumber: "Inv MGL5474",
-    avatar: "/assets/avatar1.png", // Add your avatar images to public/assets/
+    avatar: "/assets/invoice1.png", // Add your avatar images to public/assets/
     date: "14 Apr 2022 at 8:00 PM",
     orderType: 20,
     amount: 5420.84,
@@ -22,7 +22,7 @@ const fakeInvoices = [
     id: 2,
     client: "Gadget Gallery Ltd",
     invoiceNumber: "Inv MGL5474",
-    avatar: "/assets/avatar1.png",
+    avatar: "/assets/invoice2.png",
     date: "14 Apr 2022 at 8:00 PM",
     orderType: 20,
     amount: 5420.84,
@@ -32,7 +32,7 @@ const fakeInvoices = [
     id: 3,
     client: "Gadget Gallery Ltd",
     invoiceNumber: "Inv MGL5474",
-    avatar: "/assets/avatar1.png",
+    avatar: "/assets/invoice3.png",
     date: "14 Apr 2022 at 8:00 PM",
     orderType: 20,
     amount: 5420.84,

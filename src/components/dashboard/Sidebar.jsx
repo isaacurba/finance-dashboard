@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Await, Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { account } from "../lib/appwrite";
@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const Sidebar = ({ toggleSidebar }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [loading, setloading] = useState(false)
+  const [loading, setloading] = useState(false);
   const menuItems = [
     {
       name: "Dashboard",
@@ -39,13 +39,13 @@ const Sidebar = ({ toggleSidebar }) => {
   const handleLogout = async () => {
     setloading(true);
     try {
-      await account.deleteSession("current")
-      toast.success("Logged out successfully")
-      navigate("/login")
+      await account.deleteSession("current");
+      toast.success("Logged out successfully");
+      navigate("/login");
     } catch (error) {
-      toast.error("Logout failed, please try again")
-    }finally{
-      setloading(false)
+      toast.error("Logout failed, please try again");
+    } finally {
+      setloading(false);
     }
   };
 
@@ -88,11 +88,12 @@ const Sidebar = ({ toggleSidebar }) => {
 
         <Button
           variant="ghost"
-          onClick={handleLogout}
           className="w-full justify-start text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+          onClick={handleLogout}
+          disabled={loading} // Disable during loading
         >
           <img src="/assets/Logout.png" alt="Logout" className="h-4 w-4 mr-2" />
-          Logout
+          {loading ? "Logging out..." : "Logout"} {/* Show loading text */}
         </Button>
       </div>
     </aside>

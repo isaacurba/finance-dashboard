@@ -1,7 +1,7 @@
-import React, {  useState } from "react"; 
+import React, {  useState, useEffect } from "react"; 
 import { useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
-import { Bell, User, Filter, Plus, Menu } from "lucide-react"; 
+import { Filter, Plus, Menu } from "lucide-react"; 
 import {
   Select,
   SelectContent,
@@ -9,16 +9,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { account } from "../lib/appwrite";
 
 // Fake user data (replace with real from Appwrite later)
 const user = { name: "Mahfuz Nabi", avatar: "/assets/avatar.png" };
 
+// Helper function to get initials from user name
+const getInitialAvatar = (name) => {
+  if (!name) return 'U';
+  const names = name.split(' ');
+  if (names.length === 1) return names[0][0].toUpperCase();
+  return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
+};
+
 export default function Navbar({ toggleSidebar }) { //  toggle for mobile sidebar
   const location = useLocation(); 
   const [filterValue, setFilterValue] = useState("all"); 
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Dynamic title based on route (matches sidebar menu)
-  const getPageTitle = () => {
+const getPageTitle = () => {
     switch (location.pathname) {
       case "/dashboard":
         return "Dashboard";
@@ -35,7 +46,21 @@ export default function Navbar({ toggleSidebar }) { //  toggle for mobile sideba
     }
   };
 
-  // FIXED: Conditional for filters/create only on /invoices (from Figma/PDF spec for invoices page)
+  // Fetch user info from appwrite
+  useEffect(()=>{
+    const fetchUsers = async () =>{
+      try {
+        const userData = await account.get();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }finally{
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
+
   const isInvoicesPage = location.pathname === "/invoices"; // Filters/create on invoices
 
   return (
@@ -56,7 +81,7 @@ export default function Navbar({ toggleSidebar }) { //  toggle for mobile sideba
         <img
           src="/assets/Logo.png"
           alt="Maglo Logo"
-          className="h-8 w-auto md:hidden" // md:hidden: only mobile
+          className="h-8 w-auto md:hidden" 
         />
 
         {/* Dynamic Title (hidden on mobile, shown on desktop, truncate if overflow) */}
@@ -122,21 +147,20 @@ export default function Navbar({ toggleSidebar }) { //  toggle for mobile sideba
           </Button>
         )}
 
-        {/* FIXED Profile Avatar (from Figma — button with name + dropdown arrow, no overflow) */}
-        <Button variant="ghost" size="sm" className="h-8 px-2 rounded-full flex items-center gap-2 min-w-0"> {/* FIXED: px-2 + min-w-0 to prevent overflow */}
-          <img
-            src={user.avatar}
-            alt={user.name}
-            className="h-8 w-8 rounded-full object-cover"
-          />
-          <div className="hidden md:block min-w-0"> {/* FIXED: hidden on mobile to prevent overflow */}
-            <p className="text-sm text-gray-600 truncate">{user.name}</p> {/* truncate text if too long */}
+        {/* FIXED Profile Avatar */}
+        <Button variant="ghost" size="sm" className="h-8 px-2 rounded-full flex items-center gap-2 min-w-0">
+          {/* Avatar: First letter if no photo, or custom img if added */}
+          <div className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-sm ${loading ? 'bg-gray-300 text-gray-500' : 'bg-[#C8EE44] text-gray-900'}`}>
+            {loading ? '...' : (user ? getInitialAvatar(user.name) : 'U')} {/* First letter or default 'U' */}
+          </div>
+          <div className="hidden md:block min-w-0">
+            <p className="text-sm text-gray-600 truncate">{loading ? 'Loading...' : (user ? user.name : 'User')}</p> {/* Real name or loading */}
           </div>
           <img
             src="/assets/Dropdown.png"
             alt="Dropdown"
             className="h-3 w-3 ml-1"
-          /> {/* Dropdown arrow */}
+          />
         </Button>
       </div>
     </header>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, {  useState } from "react"; 
 import { useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Bell, User, Filter, Plus, Menu } from "lucide-react"; 
@@ -49,7 +49,7 @@ export default function Navbar({ toggleSidebar }) { //  toggle for mobile sideba
           className="md:hidden h-8 w-8 p-0"
           onClick={toggleSidebar} // Toggle mobile sidebar
         >
-          <Menu className="h-4 w-4 text-gray-600" />
+          <Menu size={16} />
         </Button>
 
         {/* Logo (visible on mobile, hidden on desktop — from your note) */}
@@ -101,10 +101,10 @@ export default function Navbar({ toggleSidebar }) { //  toggle for mobile sideba
               <SelectTrigger className="w-[120px] h-8 border border-gray-300 rounded-lg"> {/* Trigger: clickable */}
                 <SelectValue placeholder="Filters" /> {/* Shows selected value */}
               </SelectTrigger>
-              <SelectContent> {/* Dropdown opens on click */}
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="paid">Paid</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
+              <SelectContent className="">
+                <SelectItem className="" value="all">All</SelectItem>
+                <SelectItem className="" value="paid">Paid</SelectItem>
+                <SelectItem className="" value="pending">Pending</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -112,7 +112,11 @@ export default function Navbar({ toggleSidebar }) { //  toggle for mobile sideba
 
         {/* Create Button (green, from Invoices Figma — conditional for invoices page) */}
         {isInvoicesPage && (
-          <Button className="bg-[#C8EE44] hover:bg-[#B8DE34] text-gray-900 font-semibold px-4 py-2 rounded-lg flex items-center gap-2">
+          <Button
+            className="bg-[#C8EE44] hover:bg-[#B8DE34] text-gray-900 font-semibold px-4 py-2 rounded-lg flex items-center gap-2"
+            variant="default"
+            size="default"
+          >
             <Plus className="h-4 w-4" />
             Create Invoice
           </Button>

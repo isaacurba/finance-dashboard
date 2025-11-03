@@ -1,12 +1,14 @@
 import Sidebar from "../dashboard/Sidebar";
-import React from 'react'
+import Navbar from "../dashboard/Navbar";
+import React from "react";
 
 const Settings = () => {
   return (
     <div>
       <Sidebar />
+      <Navbar />
     </div>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;

@@ -6,6 +6,7 @@ const invoices = () => {
   return (
     <div>
       <Sidebar />
+      <Navbar />
     </div>
   );
 };

@@ -6,6 +6,7 @@ const Transactions = () => {
   return (
     <div>
       <Sidebar />
+      <Navbar />
     </div>
   )
 }

@@ -1,20 +1,52 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, {useState} from "react";
+import { Await, Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
+import { account } from "../lib/appwrite";
+import { toast } from "sonner";
 
 const Sidebar = ({ toggleSidebar }) => {
   const location = useLocation();
-
+  const navigate = useNavigate();
+  const [loading, setloading] = useState(false)
   const menuItems = [
-    { name: "Dashboard", icon: "/assets/Dashboard.png", path: "/dashboard" },
-    { name: "Transactions", icon: "/assets/Transactions.png", path: "/transactions" },
-    { name: "Invoices", icon: "/assets/Invoices.png", path: "/invoices" },
-    { name: "My Wallets", icon: "/assets/My Wallets.png", path: "/wallets" },
-    { name: "Settings", icon: "/assets/Settings.png", path: "/settings" },
+    {
+      name: "Dashboard",
+      icon: "/assets/Dashboard.png",
+      path: "/dashboard",
+    },
+    {
+      name: "Transactions",
+      icon: "/assets/Transactions.png",
+      path: "/transactions",
+    },
+    {
+      name: "Invoices",
+      icon: "/assets/Invoices.png",
+      path: "/invoices",
+    },
+    {
+      name: "My Wallets",
+      icon: "/assets/My Wallets.png",
+      path: "/wallets",
+    },
+    {
+      name: "Settings",
+      icon: "/assets/Settings.png",
+      path: "/settings",
+    },
   ];
 
-  const handleLogout = () => {
-    alert("Logout clicked (UI only — add real logic later)");
+  const handleLogout = async () => {
+    setloading(true);
+    try {
+      await account.deleteSession("current")
+      toast.success("Logged out successfully")
+      navigate("/login")
+    } catch (error) {
+      toast.error("Logout failed, please try again")
+    }finally{
+      setloading(false)
+    }
   };
 
   const isActive = (path) => location.pathname === path;

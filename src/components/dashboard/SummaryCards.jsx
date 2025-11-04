@@ -23,11 +23,18 @@ const metrics = [
     icon: "/assets/wallet1.png",
     cardBg: "bg-gray-50 text-gray-900", // light gray
   },
+  {
+    title: "Total VAT Collected",
+    value: "₦550.25",
+    iconBg: "bg-gray-100",
+    icon: "/assets/wallet1.png",
+    cardBg: "bg-gray-50 text-gray-900", // light gray
+  },
 ];
 
 export default function SummaryCards() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {metrics.map((metric, index) => (
         <Card
           key={index}

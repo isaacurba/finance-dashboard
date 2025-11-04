@@ -1,12 +1,21 @@
 // src/dashboard/FullInvoiceTable.jsx
 import React, { useState } from "react";
 import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from "../ui/table";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "../ui/select";
 import { Plus, MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
@@ -62,6 +71,29 @@ export default function FullInvoiceTable() {
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold text-gray-900">All Invoices</h2>
 
+        {/* Middle: Search Input (always input, hidden on mobile) */}
+        <div className="flex-1 max-w-md mx-4 hidden md:flex relative">
+          {" "}
+          {/* FIXED: flex-1 for centering, max-w-md to prevent overflow */}
+          <img
+            src="/assets/search.png"
+            alt="Search icon"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 opacity-50" // FIXED: opacity for gray tint
+          />
+          <input
+            type="search"
+            placeholder="Search invoices..."
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8EE44] focus:border-transparent transition"
+          />
+        </div>
+
+        <Button
+          className="bg-[#C8EE44] text-gray-900 hover:bg-lime-300 flex items-center gap-2"
+          onClick={() => navigate("/create-invoice")}
+        >
+          <img src="/assets/createinvoice.png" className="h-4 w-4" /> Create Invoice
+        </Button>
+
         <div className="flex items-center gap-3">
           <Select value={filter} onValueChange={setFilter}>
             <SelectTrigger className="w-[120px]">
@@ -73,13 +105,6 @@ export default function FullInvoiceTable() {
               <SelectItem value="paid">Paid</SelectItem>
             </SelectContent>
           </Select>
-
-          <Button
-            className="bg-[#C8EE44] text-gray-900 hover:bg-lime-300 flex items-center gap-2"
-            onClick={() => navigate("/create-invoice")}
-          >
-            <Plus className="h-4 w-4" /> New Invoice
-          </Button>
         </div>
       </div>
 
@@ -107,7 +132,9 @@ export default function FullInvoiceTable() {
                       className="h-8 w-8 rounded-full object-cover"
                     />
                     <div>
-                      <div className="text-sm font-medium">{invoice.client}</div>
+                      <div className="text-sm font-medium">
+                        {invoice.client}
+                      </div>
                       <div className="text-xs text-gray-500">
                         {invoice.invoiceNumber}
                       </div>
@@ -115,7 +142,9 @@ export default function FullInvoiceTable() {
                   </div>
                 </TableCell>
                 <TableCell>{invoice.date}</TableCell>
-                <TableCell>{getOrderTypeDescription(invoice.orderType)}</TableCell>
+                <TableCell>
+                  {getOrderTypeDescription(invoice.orderType)}
+                </TableCell>
                 <TableCell className="text-right">
                   ₦{invoice.amount.toLocaleString()}
                 </TableCell>

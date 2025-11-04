@@ -11,11 +11,31 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [loading, setLoading] = useState(false);
 
   const menuItems = [
-    { name: "Dashboard", icon: "/assets/Dashboard.png", path: "/dashboard" },
-    { name: "Transactions", icon: "/assets/Transactions.png", path: "/transactions" },
-    { name: "Invoices", icon: "/assets/Invoices.png", path: "/invoices" },
-    { name: "My Wallets", icon: "/assets/My Wallets.png", path: "/wallets" },
-    { name: "Settings", icon: "/assets/Settings.png", path: "/settings" },
+    {
+      name: "Dashboard",
+      icon: "/assets/Dashboard.png",
+      path: "/dashboard",
+    },
+    {
+      name: "Transactions",
+      icon: "/assets/Transactions.png",
+      path: "/transactions",
+    },
+    {
+      name: "Invoices",
+      icon: "/assets/Invoices.png",
+      path: "/invoices",
+    },
+    {
+      name: "My Wallets",
+      icon: "/assets/My Wallets.png",
+      path: "/wallets",
+    },
+    {
+      name: "Settings",
+      icon: "/assets/Settings.png",
+      path: "/settings",
+    },
   ];
 
   const handleLogout = async () => {
@@ -31,7 +51,17 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     }
   };
 
-  const isActive = (path) => location.pathname === path;
+  // ✅ Improved active state logic
+  const isActive = (item) => {
+    if (item.name === "Invoices") {
+      // stays active for both /invoices and /create-invoice
+      return (
+        location.pathname.startsWith("/invoices") ||
+        location.pathname === "/create-invoice"
+      );
+    }
+    return location.pathname === item.path;
+  };
 
   return (
     <>
@@ -62,9 +92,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <Link
               key={item.name}
               to={item.path}
-              onClick={toggleSidebar} // close sidebar when navigating
+              onClick={toggleSidebar}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                isActive(item.path)
+                isActive(item)
                   ? "bg-[#C8EE44] text-gray-900"
                   : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
               }`}
@@ -91,7 +121,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             onClick={handleLogout}
             disabled={loading}
           >
-            <img src="/assets/Logout.png" alt="Logout" className="h-4 w-4 mr-2" />
+            <img
+              src="/assets/Logout.png"
+              alt="Logout"
+              className="h-4 w-4 mr-2"
+            />
             {loading ? "Logging out..." : "Logout"}
           </Button>
         </div>

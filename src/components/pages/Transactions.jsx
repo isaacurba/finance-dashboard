@@ -1,14 +1,8 @@
 import React from 'react'
-import Sidebar from "../dashboard/Sidebar";
-import Navbar from '../dashboard/Navbar';
+import TransactionLayout from '../transactions/TransactionLayout';
 
 const Transactions = () => {
-  return (
-    <div>
-      <Sidebar />
-      <Navbar />
-    </div>
-  )
+  return <TransactionLayout />;
 }
 
 export default Transactions

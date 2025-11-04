@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "../dashboard/Sidebar";
 import Navbar from "../dashboard/Navbar";
-import MyWallet from "../wallet/MyWallet";
+import TransactionTable from "../transactions/TransactionTable";
 
 const TransactionLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,7 +18,7 @@ const TransactionLayout = () => {
 
         {/* Scrollable content section */}
         <main className="flex-1 overflow-y-auto p-6 space-y-6">
-          <MyWallet />
+          <TransactionTable />
         </main>
       </div>
     </div>

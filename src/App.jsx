@@ -6,7 +6,7 @@ import Signup from "./components/pages/Signup";
 import Dashboard from "./components/pages/Dashboard";
 // Add dummy components (create empty files or use placeholders)
 import Transactions from "./components/pages/Transactions";
-import Invoices from "./components/pages/Invoices";
+import Invoices from "./components/pages/Invoices.jsx";
 import Wallets from "./components/pages/Wallets.jsx";
 import Settings from "./components/pages/Settings.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";

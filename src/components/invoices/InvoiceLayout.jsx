@@ -15,7 +15,7 @@ const InvoiceLayout = () => {
       {/* Main content area */}
       <div className="flex flex-col flex-1 h-screen overflow-hidden">
         <Navbar toggleSidebar={toggleSidebar} />
-
+    
         {/* Scrollable content section */}
         <main className="flex-1 overflow-y-auto p-6 space-y-6">
           <FullInvoiceTable />

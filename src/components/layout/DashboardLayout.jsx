@@ -6,24 +6,25 @@ import ChartSection from "../dashboard/ChartSection";
 import InvoiceTable from "../dashboard/InvoiceTable";
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // State to manage sidebar visibility
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
-    <div className="flex bg-gray-50">
-      {/* FIXED: Removed extra div — sidebar direct child, no push */}
-      <Sidebar toggleSidebar={isSidebarOpen} />
+    <div className="flex min-h-screen bg-gray-50 overflow-hidden"> {/* Prevent entire page scroll */}
+      {/* Sidebar (fixed desktop, toggle on mobile) */}
+      <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Area */}
-      <div className="flex-1 flex flex-col md:pl-64"> {/* Responsive padding for medium screens and above */}
+      <div className="flex-1 flex flex-col md:ml-64 overflow-hidden"> {/* Prevent main area scroll */}
         <Navbar toggleSidebar={toggleSidebar} />
-        <main className="p-6 space-y-6">
-          <SummaryCards />
-          <ChartSection />
-          <InvoiceTable />
+
+        <main className="flex-1 p-6 space-y-6">
+          <div className="space-y-6 overflow-y-auto h-full"> {/* Allow only content scroll */}
+            <SummaryCards />
+            <ChartSection />
+            <InvoiceTable />
+          </div>
         </main>
       </div>
     </div>

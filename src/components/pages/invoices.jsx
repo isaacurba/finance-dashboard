@@ -1,14 +1,8 @@
-import Sidebar from "../dashboard/Sidebar";
-import Navbar from "../dashboard/Navbar";
 import React from "react";
+import InvoiceLayout from "../invoices/InvoiceLayout";
 
-const invoices = () => {
-  return (
-    <div>
-      <Sidebar />
-      <Navbar />
-    </div>
-  );
+const Invoices = () => {
+  return <InvoiceLayout />;
 };
 
-export default invoices;
+export default Invoices;

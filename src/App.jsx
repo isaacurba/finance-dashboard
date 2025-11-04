@@ -1,16 +1,16 @@
 // src/App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "./components/pages/Login";
-import Signup from "./components/pages/Signup";
-import Dashboard from "./components/pages/Dashboard";
+import Login from "./components/pages/Login.jsx";
+import Signup from "./components/pages/Signup.jsx";
+import Dashboard from "./components/pages/Dashboard.jsx";
 // Add dummy components (create empty files or use placeholders)
-import Transactions from "./components/pages/Transactions";
+import Transactions from "./components/pages/Transactions.jsx";
 import Invoices from "./components/pages/Invoices.jsx";
 import Wallets from "./components/pages/Wallets.jsx";
 import Settings from "./components/pages/Settings.jsx";
-import ProtectedRoute from "./components/ProtectedRoute";
-import CreateInvoice from "./components/pages/CreateInvoice";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import CreateInvoice from "./components/pages/CreateInvoice.jsx";
 
 function App() {
   return (

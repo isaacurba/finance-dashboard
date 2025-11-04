@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Plus, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { invoices } from "../data/invoices"; // make sure this file exists
 import { useNavigate } from "react-router-dom"; // hook for navigation
